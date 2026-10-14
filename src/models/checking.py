@@ -1,4 +1,4 @@
-"""src/models/checking.py - Checking Account with overdraft support."""
+# src/models/checking.py
 from src.models.account import Account
 from src.exceptions import InsufficientFundsError, InvalidTransactionError
 
@@ -9,7 +9,7 @@ class CheckingAccount(Account):
         self._overdraft_limit = overdraft_limit
         self._overdraft_fee = overdraft_fee
 
-    def withdraw(self, amount: float) -> bool:
+    def withdraw(self, amount: float, note: str = "WITHDRAWAL") -> bool:
         if amount <= 0:
             raise InvalidTransactionError("Withdrawal amount must be positive.")
         if (self._balance - amount) < -self._overdraft_limit:
@@ -18,9 +18,8 @@ class CheckingAccount(Account):
             )
         
         self._balance -= amount
-        self._record_transaction("WITHDRAWAL", amount)
+        self._record_transaction(note, amount)
         
-        # Apply overdraft penalty if balance dips negative
         if self._balance < 0:
             self._balance -= self._overdraft_fee
             self._record_transaction("OVERDRAFT_FEE", self._overdraft_fee)
@@ -29,3 +28,12 @@ class CheckingAccount(Account):
 
     def apply_monthly_process(self) -> None:
         pass
+
+    def to_dict(self) -> dict:
+        data = super().to_dict()
+        data.update({
+            "account_type": "CheckingAccount",
+            "overdraft_limit": self._overdraft_limit,
+            "overdraft_fee": self._overdraft_fee
+        })
+        return data

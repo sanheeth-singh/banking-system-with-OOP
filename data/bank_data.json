@@ -1,0 +1,50 @@
+{
+  "SAV-940583": {
+    "account_number": "SAV-940583",
+    "account_holder": "User A",
+    "balance": 60.0,
+    "transactions": [
+      {
+        "transaction_id": "TX-E2B1041C",
+        "timestamp": "2026-10-14 21:21:00",
+        "transaction_type": "INITIAL_DEPOSIT",
+        "amount": 100.0,
+        "resulting_balance": 100.0
+      },
+      {
+        "transaction_id": "TX-609E74B5",
+        "timestamp": "2026-10-14 21:21:00",
+        "transaction_type": "TRANSFER_OUT (to CHK-591352)",
+        "amount": 40.0,
+        "resulting_balance": 60.0
+      }
+    ],
+    "account_type": "SavingsAccount",
+    "interest_rate": 0.04,
+    "minimum_balance": 50.0
+  },
+  "CHK-591352": {
+    "account_number": "CHK-591352",
+    "account_holder": "User B",
+    "balance": 90.0,
+    "transactions": [
+      {
+        "transaction_id": "TX-81C6A460",
+        "timestamp": "2026-10-14 21:21:00",
+        "transaction_type": "INITIAL_DEPOSIT",
+        "amount": 50.0,
+        "resulting_balance": 50.0
+      },
+      {
+        "transaction_id": "TX-0E4FBE17",
+        "timestamp": "2026-10-14 21:21:00",
+        "transaction_type": "TRANSFER_IN (from SAV-940583)",
+        "amount": 40.0,
+        "resulting_balance": 90.0
+      }
+    ],
+    "account_type": "CheckingAccount",
+    "overdraft_limit": 500.0,
+    "overdraft_fee": 25.0
+  }
+}
